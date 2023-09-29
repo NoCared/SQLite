@@ -39,3 +39,32 @@ SELECT id_livre, count(id_livre) as nombre_livre FROM emprunt GROUP BY id_livre;
 
         Version triée par le nombre décroissant :
                     SELECT id_livre, count(id_livre) as nombre_livre FROM emprunt GROUP BY id_livre ORDER BY nombre_livre DESC; 
+
+
+
+
+
+- Quel id_abonne empreinte le plus de livre ?
+
+SELECT id_abonne  FROM emprunt GROUP BY id_abonne ORDER BY count(id_abonne)  DESC LIMIT 1;  
+
+                Avec le nom et le nombre de livre :
+                        SELECT prenom_abonne, count(emprunt.id_abonne) as nombre_livres_empruntes FROM emprunt INNER JOIN abonne ON abonne.id_abonne = emprunt.id_abonne GROUP BY emprunt.id_abonne ORDER BY count(emprunt.id_abonne) DESC LIMIT 1; 
+
+
+
+
+
+
+Autre façon pour les requetes imbriquées mais moins rapide : 
+SELECT titre_livre FROM livre WHERE id_livre IN (SELECT id_livre FROM emprunt WHERE date_rendu IS NULL);
+Ici sélectionne les livres non rendus et affiche leurs noms
+
+
+
+
+
+
+- Afficher le nombre de livre que Chloé à emprunté :
+
+SELECT prenom_abonne, count(emprunt.id_abonne) as nombre_livres_empruntes FROM abonne INNER JOIN emprunt ON emprunt.id_abonne = abonne.id_abonne WHERE prenom_abonne = 'Chloe';

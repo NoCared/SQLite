@@ -65,6 +65,20 @@ Ici sélectionne les livres non rendus et affiche leurs noms
 
 
 
-- Afficher le nombre de livre que Chloé à emprunté :
+- Afficher le nombre de livre que Benoit a emprunté :
 
-SELECT prenom_abonne, count(emprunt.id_abonne) as nombre_livres_empruntes FROM abonne INNER JOIN emprunt ON emprunt.id_abonne = abonne.id_abonne WHERE prenom_abonne = 'Chloe';
+SELECT prenom_abonne, count(emprunt.id_abonne) as nombre_livres_empruntes FROM abonne INNER JOIN emprunt ON emprunt.id_abonne = abonne.id_abonne WHERE prenom_abonne = 'Benoit';
+
+
+- Afficher le numéro de livre que Benoit a le plus emprunté :
+SELECT id_livre FROM emprunt WHERE id_abonne IN (SELECT id_abonne FROM abonne WHERE prenom_abonne like 'Benoit');
+
+
+
+
+
+- Afficher le titre des livres que Benoit à emprunté :
+
+SELECT titre_livre FROM abonne INNER JOIN emprunt ON abonne.id_abonne = emprunt.id_abonne INNER JOIN livre ON livre.id_livre = emprunt.id_livre WHERE abonne.prenom_abonne LIKE 'Benoit'; 
+
+
